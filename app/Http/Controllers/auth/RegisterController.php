@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Forgate_password;
 use App\Mail\password_email;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -56,16 +57,16 @@ class RegisterController extends Controller
     public function forgate_password(Request $request)
     {
         $request->validate([
-            'email' =>'required|email|exists:users'
+            'email' => 'required|email|exists:users'
         ]);
+
         $email = $request->email;
         $username = DB::table('users')->where('email',$email)->value('name');
         $data = [
-            'message' => "Welcome  $username",
-            'username' => "$username"
+            'username' => $username
         ];
-        Mail::to($email)->send(new Password_email($data));
-        return redirect()->route('login'); 
+        Mail::to($email)->send(new Forgate_password($data));
+        return redirect()->route('login')->with(['success','please check email then login coreect password']);
     }
 
     /**

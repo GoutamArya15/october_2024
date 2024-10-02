@@ -9,18 +9,16 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class Password_email extends Mailable
+class Forgate_password extends Mailable
 {
-    public $data;
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($data)
+    public function __construct()
     {
-        $this->data  = $data;
-        // dd($data['username']);
+        //
     }
 
     /**
@@ -28,18 +26,18 @@ class Password_email extends Mailable
      */
     public function envelope(): Envelope
     {
-        // dd($this->data['message']);
         return new Envelope(
-            subject: $this->data['message'],
+            subject: 'Forgate Password',
         );
     }
+
     /**
      * Get the message content definition.
      */
     public function content(): Content
     {
         return new Content(
-            view: 'authantication.email',
+            view: 'view.name',
         );
     }
 

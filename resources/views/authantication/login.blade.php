@@ -1,3 +1,6 @@
+@if (session('success'))
+    @dd(session('success')); 
+@endif
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
